@@ -37,7 +37,7 @@ app.put("/api/workouts/:id", (req, res) => {
 })
 
 // GET workouts
-router.get("/api/workouts", (req, res) => {
+app.get("/api/workouts", (req, res) => {
     // find all workouts
     Workout.find()
         .then(dbWorkouts => {
