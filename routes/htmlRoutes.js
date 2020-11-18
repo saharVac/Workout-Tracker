@@ -1,6 +1,6 @@
 // DEPENDENCIES
 const express = require("express")
-const app = express.Router
+const app = express.Router();
 // path module
 const path = require("path")
 
