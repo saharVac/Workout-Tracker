@@ -36,6 +36,18 @@ app.put("/api/workouts/:id", (req, res) => {
         })
 })
 
-
+// GET workouts
+router.get("/api/workouts", (req, res) => {
+    // find all workouts
+    Workout.find()
+        .then(dbWorkouts => {
+            // send them back
+            res.json(dbWorkouts);
+        })
+        .catch(err => {
+            // send error if exists
+            res.json(err);
+        });
+    });
 
 module.exports = app;
