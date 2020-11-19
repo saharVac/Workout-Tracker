@@ -3,7 +3,7 @@ const express = require("express")
 const app = express.Router()
 
 // workout constructor
-const Workout = require("../models/Workout.js");
+const Workout = require("../models/workout.js");
 
 // WORKOUTS CRUD
 
