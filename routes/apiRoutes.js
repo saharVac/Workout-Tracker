@@ -52,7 +52,6 @@ app.get("/api/workouts/range", (req, res) => {
 // UPDATE workout w/ specific id
 app.put("/api/workouts/:id", (req, res) => {
     // update making sure requirements are met
-    console.log(req.body)
     Workout.findByIdAndUpdate(
         req.params.id,
         {$push: {exercises: req.body}},
