@@ -5,17 +5,47 @@ const app = express.Router()
 // workout constructor
 const Workout = require("../models/Workout.js");
 
+// workouts CRUD
+
 // CREATE workout
 app.post("/api/workouts", (req, res) => {
     // pass body to mongoose create method
     Workout.create({})
         // send it as success message
-        .then(dbWorkout => {
-            res.json(dbWorkout);
+        .then(workout => {
+            res.json(workout);
         })
         .catch(err => {
             // send error if exists
             res.json(err)
+        })
+})
+
+// READ workouts
+app.get("/api/workouts", (req, res) => {
+    // find all workouts
+    Workout.find()
+        .then(workouts => {
+            // send them back
+            res.json(workouts);
+        })
+        .catch(err => {
+            // send error if exists
+            res.json(err);
+        });
+});
+
+// READ workouts w/in range
+app.get("/api/workouts/range", (req, res) => {
+    // find range of workouts
+    Workout.find({}).limit(5)
+        .then(workouts => {
+            // send them back
+            res.json(workouts)
+        })
+        .catch(err => {
+            // send error if exists
+            res.json(err);
         })
 })
 
@@ -36,20 +66,6 @@ app.put("/api/workouts/:id", (req, res) => {
             res.json(err);
         })
 })
-
-// GET workouts
-app.get("/api/workouts", (req, res) => {
-    // find all workouts
-    Workout.find()
-        .then(dbWorkouts => {
-            // send them back
-            res.json(dbWorkouts);
-        })
-        .catch(err => {
-            // send error if exists
-            res.json(err);
-        });
-});
 
 
 module.exports = app;
