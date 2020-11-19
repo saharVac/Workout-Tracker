@@ -5,12 +5,12 @@ const app = express.Router()
 // workout constructor
 const Workout = require("../models/Workout.js");
 
-// workouts CRUD
+// WORKOUTS CRUD
 
 // CREATE workout
-app.post("/api/workouts", (req, res) => {
+app.post("/api/workouts/", (req, res) => {
     // pass body to mongoose create method
-    Workout.create({})
+    Workout.create(req.body)
         // send it as success message
         .then(workout => {
             res.json(workout);
@@ -52,6 +52,7 @@ app.get("/api/workouts/range", (req, res) => {
 // UPDATE workout w/ specific id
 app.put("/api/workouts/:id", (req, res) => {
     // update making sure requirements are met
+    console.log(req.body)
     Workout.findByIdAndUpdate(
         req.params.id,
         {$push: {exercises: req.body}},
@@ -80,6 +81,5 @@ app.delete("/api/workouts", (req, res) => {
             res.json(err)
         })
 })
-
 
 module.exports = app;

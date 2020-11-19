@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 // Define middleware
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // morgan logger
 app.use(logger("dev"));
@@ -25,6 +25,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 // api and html routes
 app.use(require("./routes/apiRoutes.js"));
 app.use(require("./routes/htmlRoutes.js"));
+
+
 
 // Listener
 app.listen(PORT, () => {
