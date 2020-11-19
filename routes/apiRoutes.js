@@ -4,6 +4,8 @@ const app = express.Router()
 
 // workout constructor
 const Workout = require("../models/workout.js");
+// Exercise constructor
+const Exercise = require("../models/exercise");
 
 // WORKOUTS CRUD
 
@@ -16,11 +18,6 @@ app.post("/api/workouts/", (req, res) => {
             res.json(workout);
         })
         .catch(err => {
-
-            console.log("\n\n")
-            console.log(err)
-            console.log("\n\n")
-
             // send error if exists
             res.json(err)
         })
@@ -55,18 +52,26 @@ app.get("/api/workouts/range", (req, res) => {
 })
 
 // UPDATE workout w/ specific id
-app.put("/api/workouts/:id", (req, res) => {
-    // update making sure requirements are met
+app.put("/api/workouts/:id", async (req, res) => {
+    // create exercise, await bc the workout update depends on it
+    const exercise = await Exercise.create(req.body);
+    // update workout with exercise making sure requirements are met
     Workout.findByIdAndUpdate(
         req.params.id,
-        {$push: {exercises: req.body}},
+        {$push: {exercises: exercise._id}},
         {new: true, runValidators: true}
     )
+        .populate("exercises")
         .then(dbWorkout => {
             // send it as a success message
             res.json(dbWorkout);
         })
         .catch(err => {
+
+            console.log("\n\n\n")
+            console.log("error", err)
+            console.log("\n\n\n")
+
             // send error if exists
             res.json(err);
         })
