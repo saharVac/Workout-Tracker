@@ -8,7 +8,7 @@ const Workout = require("../models/Workout.js");
 // CREATE workout
 app.post("/api/workouts", (req, res) => {
     // pass body to mongoose create method
-    Workout.create(req.body)
+    Workout.create({})
         // send it as success message
         .then(dbWorkout => {
             res.json(dbWorkout);
@@ -21,6 +21,7 @@ app.post("/api/workouts", (req, res) => {
 
 // UPDATE workout w/ specific id
 app.put("/api/workouts/:id", (req, res) => {
+    // update making sure requirements are met
     Workout.findByIdAndUpdate(
         req.params.id,
         {$push: {exercises: req.body}},
@@ -48,6 +49,7 @@ app.get("/api/workouts", (req, res) => {
             // send error if exists
             res.json(err);
         });
-    });
+});
+
 
 module.exports = app;
