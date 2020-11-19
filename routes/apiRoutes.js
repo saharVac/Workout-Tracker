@@ -9,7 +9,6 @@ const Workout = require("../models/workout.js");
 
 // CREATE workout
 app.post("/api/workouts/", (req, res) => {
-
     // pass body to mongoose create method
     Workout.create(req.body)
         // send it as success message
@@ -17,6 +16,11 @@ app.post("/api/workouts/", (req, res) => {
             res.json(workout);
         })
         .catch(err => {
+
+            console.log("\n\n")
+            console.log(err)
+            console.log("\n\n")
+
             // send error if exists
             res.json(err)
         })
@@ -52,7 +56,6 @@ app.get("/api/workouts/range", (req, res) => {
 
 // UPDATE workout w/ specific id
 app.put("/api/workouts/:id", (req, res) => {
-    
     // update making sure requirements are met
     Workout.findByIdAndUpdate(
         req.params.id,
@@ -60,7 +63,6 @@ app.put("/api/workouts/:id", (req, res) => {
         {new: true, runValidators: true}
     )
         .then(dbWorkout => {
-            console.log(dbWorkout)
             // send it as a success message
             res.json(dbWorkout);
         })
