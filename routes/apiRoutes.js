@@ -67,5 +67,19 @@ app.put("/api/workouts/:id", (req, res) => {
         })
 })
 
+// DELETE workouts
+app.delete("/api/workouts", (req, res) => {
+    // delete by id passed in body
+    Workout.findByIdAndDelete(req.body.id)
+        .then(() => {
+            // notify if successful
+            res.json(true)
+        })
+        .catch(err => {
+            // send error if exists
+            res.json(err)
+        })
+})
+
 
 module.exports = app;
