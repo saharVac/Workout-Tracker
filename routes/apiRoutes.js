@@ -26,7 +26,7 @@ app.post("/api/workouts/", (req, res) => {
 // READ workouts
 app.get("/api/workouts", (req, res) => {
     // find all workouts
-    Workout.find()
+    Workout.find().populate("exercises")
         .then(workouts => {
             // send them back
             res.json(workouts);
@@ -60,18 +60,15 @@ app.put("/api/workouts/:id", async (req, res) => {
         req.params.id,
         {$push: {exercises: exercise._id}},
         {new: true, runValidators: true}
-    )
-        .populate("exercises")
+    ).populate("exercises")
         .then(dbWorkout => {
+            console.log("\n\n\n")
+            console.log(dbWorkout)
+            console.log("\n\n\n")
             // send it as a success message
             res.json(dbWorkout);
         })
         .catch(err => {
-
-            console.log("\n\n\n")
-            console.log("error", err)
-            console.log("\n\n\n")
-
             // send error if exists
             res.json(err);
         })

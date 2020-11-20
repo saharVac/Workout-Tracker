@@ -12,9 +12,9 @@ const WorkoutSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "exercise"
     }
-  ] // DO I ADD properties when data requested?
+  ]
 });
 
-const Workout = mongoose.model("Workout", WorkoutSchema);
+const Workout = mongoose.model("workout", WorkoutSchema);
 
 module.exports = Workout;
